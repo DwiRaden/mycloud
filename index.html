@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0d12">
+
+    <title>Personal Text Vault</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Supabase -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+        defer>
+    </script>
+
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+
+    <!-- LOGIN PAGE -->
+    <main id="login-page" class="login-page">
+
+        <div class="login-container">
+
+            <div class="logo">
+                <span>◆</span>
+                <h2>TEXT VAULT</h2>
+            </div>
+
+            <div class="login-header">
+                <h1>Welcome Back.</h1>
+                <p>Masuk untuk mengakses catatan pribadimu.</p>
+            </div>
+
+            <form id="login-form">
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Masukkan email"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Masukkan password"
+                        required>
+                </div>
+
+                <button type="submit" id="login-button">
+                    Sign In
+                </button>
+
+                <p id="login-error" class="error-message"></p>
+
+            </form>
+
+            <div class="login-footer">
+                PRIVATE ACCESS ONLY
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- DASHBOARD -->
+    <main id="dashboard-page" class="dashboard hidden">
+
+        <header class="navbar">
+
+            <div class="logo">
+                <span>◆</span>
+                <h2>TEXT VAULT</h2>
+            </div>
+
+            <button id="logout-button" class="logout-button">
+                Logout
+            </button>
+
+        </header>
+
+
+        <section class="dashboard-content">
+
+            <div class="welcome-section">
+                <div>
+                    <p class="subtitle">PERSONAL WORKSPACE</p>
+                    <h1>My Notes.</h1>
+                    <p>Semua catatan pribadimu dalam satu tempat.</p>
+                </div>
+
+                <button id="add-note-button">
+                    + New Note
+                </button>
+            </div>
+
+
+            <!-- SEARCH -->
+            <div class="search-container">
+                <input
+                    type="search"
+                    id="search-input"
+                    placeholder="Cari catatan...">
+            </div>
+
+
+            <!-- NOTES -->
+            <section class="notes-section">
+
+                <div class="section-heading">
+                    <h2>Saved Notes</h2>
+                    <span id="notes-count">0 Notes</span>
+                </div>
+
+                <div id="notes-container" class="notes-grid">
+                    <!-- Catatan akan ditampilkan di sini -->
+                </div>
+
+                <div id="empty-state" class="empty-state hidden">
+                    <h3>Belum ada catatan</h3>
+                    <p>Mulai simpan catatan pertamamu.</p>
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <!-- NOTE EDITOR -->
+    <div id="note-modal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2 id="modal-title">New Note</h2>
+                <button id="close-modal-button" type="button">
+                    ✕
+                </button>
+            </div>
+
+            <form id="note-form">
+
+                <input type="hidden" id="note-id">
+
+                <div class="form-group">
+                    <label for="note-title">Judul</label>
+                    <input
+                        type="text"
+                        id="note-title"
+                        placeholder="Judul catatan"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="note-description">Deskripsi</label>
+                    <input
+                        type="text"
+                        id="note-description"
+                        placeholder="Deskripsi singkat">
+                </div>
+
+                <div class="form-group">
+                    <label for="note-content">Isi Catatan</label>
+                    <textarea
+                        id="note-content"
+                        rows="10"
+                        placeholder="Tulis sesuatu..."
+                        required></textarea>
+                </div>
+
+                <button type="submit" id="save-note-button">
+                    Simpan Catatan
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
