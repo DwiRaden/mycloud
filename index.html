@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0b0d12">
+    <meta name="description" content="Personal Text Vault - Private and Public Notes">
 
     <title>Personal Text Vault</title>
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Supabase -->
     <script
         src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
         defer>
@@ -21,7 +21,10 @@
 
 <body>
 
-    <!-- LOGIN PAGE -->
+    <!-- =========================
+         LOGIN PAGE
+    ========================== -->
+
     <main id="login-page" class="login-page">
 
         <div class="login-container">
@@ -32,27 +35,32 @@
             </div>
 
             <div class="login-header">
+                <p class="subtitle">PRIVATE STORAGE SYSTEM</p>
                 <h1>Welcome Back.</h1>
-                <p>Masuk untuk mengakses catatan pribadimu.</p>
+                <p>Masuk untuk mengakses ruang penyimpanan pribadimu.</p>
             </div>
 
             <form id="login-form">
 
                 <div class="form-group">
                     <label for="email">Email</label>
+
                     <input
                         type="email"
                         id="email"
                         placeholder="Masukkan email"
+                        autocomplete="username"
                         required>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
+
                     <input
                         type="password"
                         id="password"
                         placeholder="Masukkan password"
+                        autocomplete="current-password"
                         required>
                 </div>
 
@@ -64,6 +72,28 @@
 
             </form>
 
+            <div class="public-access">
+
+                <div class="public-divider">
+                    <span>OR</span>
+                </div>
+
+                <button
+                    type="button"
+                    id="explore-public-button"
+                    class="public-button">
+
+                    <span>◎</span>
+                    Explore Public Notes
+
+                </button>
+
+                <p>
+                    Baca catatan yang tersedia untuk umum tanpa login.
+                </p>
+
+            </div>
+
             <div class="login-footer">
                 PRIVATE ACCESS ONLY
             </div>
@@ -73,8 +103,11 @@
     </main>
 
 
-    <!-- DASHBOARD -->
-    <main id="dashboard-page" class="dashboard hidden">
+    <!-- =========================
+         PUBLIC LIBRARY
+    ========================== -->
+
+    <main id="public-page" class="public-page hidden">
 
         <header class="navbar">
 
@@ -83,8 +116,13 @@
                 <h2>TEXT VAULT</h2>
             </div>
 
-            <button id="logout-button" class="logout-button">
-                Logout
+            <button
+                type="button"
+                id="public-login-button"
+                class="logout-button">
+
+                Admin Login
+
             </button>
 
         </header>
@@ -93,42 +131,62 @@
         <section class="dashboard-content">
 
             <div class="welcome-section">
+
                 <div>
-                    <p class="subtitle">PERSONAL WORKSPACE</p>
-                    <h1>My Notes.</h1>
-                    <p>Semua catatan pribadimu dalam satu tempat.</p>
+                    <p class="subtitle">PUBLIC ACCESS</p>
+
+                    <h1>Public Library.</h1>
+
+                    <p>
+                        Kumpulan catatan yang tersedia untuk dibaca semua orang.
+                    </p>
                 </div>
 
-                <button id="add-note-button">
-                    + New Note
-                </button>
             </div>
 
 
-            <!-- SEARCH -->
+            <!-- PUBLIC SEARCH -->
+
             <div class="search-container">
+
                 <input
                     type="search"
-                    id="search-input"
-                    placeholder="Cari catatan...">
+                    id="public-search-input"
+                    placeholder="Cari catatan publik...">
+
             </div>
 
 
-            <!-- NOTES -->
+            <!-- PUBLIC NOTES -->
+
             <section class="notes-section">
 
                 <div class="section-heading">
-                    <h2>Saved Notes</h2>
-                    <span id="notes-count">0 Notes</span>
+
+                    <h2>Published Notes</h2>
+
+                    <span id="public-notes-count">0 Notes</span>
+
                 </div>
 
-                <div id="notes-container" class="notes-grid">
-                    <!-- Catatan akan ditampilkan di sini -->
+
+                <div id="public-notes-container" class="notes-grid">
+
+                    <!-- Public notes rendered by JavaScript -->
+
                 </div>
 
-                <div id="empty-state" class="empty-state hidden">
-                    <h3>Belum ada catatan</h3>
-                    <p>Mulai simpan catatan pertamamu.</p>
+
+                <div
+                    id="public-empty-state"
+                    class="empty-state hidden">
+
+                    <h3>Belum ada catatan publik</h3>
+
+                    <p>
+                        Catatan yang dipublikasikan akan muncul di sini.
+                    </p>
+
                 </div>
 
             </section>
@@ -138,50 +196,297 @@
     </main>
 
 
-    <!-- NOTE EDITOR -->
+    <!-- =========================
+         PUBLIC NOTE DETAIL
+    ========================== -->
+
+    <main id="public-detail-page" class="public-detail-page hidden">
+
+        <header class="navbar">
+
+            <div class="logo">
+                <span>◆</span>
+                <h2>TEXT VAULT</h2>
+            </div>
+
+            <button
+                type="button"
+                id="detail-back-button"
+                class="logout-button">
+
+                ← Back
+
+            </button>
+
+        </header>
+
+
+        <article class="detail-container">
+
+            <p class="subtitle">PUBLIC DOCUMENT</p>
+
+            <h1 id="detail-title">Judul Catatan</h1>
+
+            <p id="detail-description" class="detail-description"></p>
+
+            <div class="detail-meta">
+
+                <span>◆ PUBLIC NOTE</span>
+
+                <span id="detail-date"></span>
+
+            </div>
+
+            <div class="detail-divider"></div>
+
+            <div
+                id="detail-content"
+                class="detail-content">
+
+            </div>
+
+        </article>
+
+    </main>
+
+
+    <!-- =========================
+         ADMIN DASHBOARD
+    ========================== -->
+
+    <main id="dashboard-page" class="dashboard hidden">
+
+        <header class="navbar">
+
+            <div class="logo">
+                <span>◆</span>
+                <h2>TEXT VAULT</h2>
+            </div>
+
+            <button
+                type="button"
+                id="logout-button"
+                class="logout-button">
+
+                Logout
+
+            </button>
+
+        </header>
+
+
+        <section class="dashboard-content">
+
+            <div class="welcome-section">
+
+                <div>
+
+                    <p class="subtitle">PERSONAL WORKSPACE</p>
+
+                    <h1>My Notes.</h1>
+
+                    <p>
+                        Kelola semua catatan pribadi dan publikmu.
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="add-note-button">
+
+                    + New Note
+
+                </button>
+
+            </div>
+
+
+            <!-- ADMIN FILTER -->
+
+            <div class="admin-filters">
+
+                <button
+                    type="button"
+                    class="filter-button active"
+                    data-filter="all">
+
+                    All Notes
+
+                </button>
+
+                <button
+                    type="button"
+                    class="filter-button"
+                    data-filter="private">
+
+                    🔒 Private
+
+                </button>
+
+                <button
+                    type="button"
+                    class="filter-button"
+                    data-filter="public">
+
+                    🌐 Public
+
+                </button>
+
+            </div>
+
+
+            <!-- ADMIN SEARCH -->
+
+            <div class="search-container">
+
+                <input
+                    type="search"
+                    id="search-input"
+                    placeholder="Cari catatan...">
+
+            </div>
+
+
+            <!-- ADMIN NOTES -->
+
+            <section class="notes-section">
+
+                <div class="section-heading">
+
+                    <h2>Saved Notes</h2>
+
+                    <span id="notes-count">0 Notes</span>
+
+                </div>
+
+
+                <div id="notes-container" class="notes-grid">
+
+                </div>
+
+
+                <div
+                    id="empty-state"
+                    class="empty-state hidden">
+
+                    <h3>Belum ada catatan</h3>
+
+                    <p>Mulai simpan catatan pertamamu.</p>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         NOTE EDITOR MODAL
+    ========================== -->
+
     <div id="note-modal" class="modal hidden">
 
         <div class="modal-content">
 
             <div class="modal-header">
+
                 <h2 id="modal-title">New Note</h2>
-                <button id="close-modal-button" type="button">
+
+                <button
+                    type="button"
+                    id="close-modal-button">
+
                     ✕
+
                 </button>
+
             </div>
+
 
             <form id="note-form">
 
-                <input type="hidden" id="note-id">
+                <input
+                    type="hidden"
+                    id="note-id">
+
 
                 <div class="form-group">
+
                     <label for="note-title">Judul</label>
+
                     <input
                         type="text"
                         id="note-title"
                         placeholder="Judul catatan"
                         required>
+
                 </div>
 
+
                 <div class="form-group">
+
                     <label for="note-description">Deskripsi</label>
+
                     <input
                         type="text"
                         id="note-description"
                         placeholder="Deskripsi singkat">
+
                 </div>
 
+
                 <div class="form-group">
+
                     <label for="note-content">Isi Catatan</label>
+
                     <textarea
                         id="note-content"
                         rows="10"
                         placeholder="Tulis sesuatu..."
                         required></textarea>
+
                 </div>
 
-                <button type="submit" id="save-note-button">
+
+                <!-- VISIBILITY SELECTOR -->
+
+                <div class="form-group">
+
+                    <label for="note-visibility">
+                        Akses Catatan
+                    </label>
+
+                    <select
+                        id="note-visibility"
+                        required>
+
+                        <option value="private">
+                            Private - Hanya Saya
+                        </option>
+
+                        <option value="public">
+                            Public - Bisa Dilihat Semua Orang
+                        </option>
+
+                    </select>
+
+                    <p class="visibility-info">
+                        Catatan public dapat dibaca oleh pengunjung
+                        tanpa harus login.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    id="save-note-button">
+
                     Simpan Catatan
+
                 </button>
 
             </form>
@@ -189,6 +494,7 @@
         </div>
 
     </div>
+
 
 </body>
 </html>
